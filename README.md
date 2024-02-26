@@ -1,1 +1,0 @@
-# typescript-react-pizza-app
