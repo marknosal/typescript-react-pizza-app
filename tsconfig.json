@@ -1,8 +1,13 @@
 {
     "compilerOptions": {
-        "target": "es6",
+        "target": "esNext",
         "module": "nodeNext",
         "strict": true,
-        "moduleResolution": "nodeNext"
-    }
+        "moduleResolution": "nodeNext",
+        "noEmit": true,
+        "isolatedModules": true,
+        "esModuleInterop": true,
+        "skipLibCheck": true
+    },
+    "include": ["./src/**/*"]
 }
