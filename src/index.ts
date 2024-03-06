@@ -3,3 +3,4 @@ function log(str: string) {
 }
 
 log('Hello World!!asas!');
+
