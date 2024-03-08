@@ -1,11 +1,9 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { createRoot } from "react-dom/client";
+import App from "./components/App";
 
-const App = () => {
-    (window as any).hello()
-    return <div>Hello world</div>;
-  };
+
    
   const rootElement = document.getElementById('root');
   if (!rootElement) throw new Error('Failed to find the root element');
