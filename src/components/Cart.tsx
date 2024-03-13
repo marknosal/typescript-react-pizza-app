@@ -26,10 +26,9 @@ class Cart extends React.Component<Props, State> {
             <AppStateContext.Consumer>
                 {(state) => {
 
-                    const totalPizzas = state.cart.items.reduce(
-                        (total, item) => total + item.quantity, 
-                        0
-                    );
+                    const totalPizzas = state.cart.items.reduce((total, item) => {
+                        return total + item.quantity
+                    }, 0);
 
                     return (
                         <div className={CartCSS.cartContainer}>
