@@ -1,4 +1,4 @@
-import React from "react";
+import React, { createRef } from "react";
 import { FiShoppingCart } from "react-icons/fi";
 import CartCSS from "../../styles/Cart.module.css";
 import { AppStateContext } from "./AppState";
@@ -10,28 +10,48 @@ interface State {
 }
 
 class Cart extends React.Component<Props, State> {
+    #containerRef: React.RefObject<HTMLDivElement>;
+
     constructor(props: Props) {
         super(props);
         this.state = {
             isOpen: false,
         };
+
+        this.#containerRef = createRef();
     }
 
     handleClick: React.MouseEventHandler<HTMLButtonElement> = (e) => {
         this.setState(prevState => ({ isOpen: !prevState.isOpen }));
     }
 
+    handleOutsideClick = (e: MouseEvent) => {
+        if (
+            this.#containerRef.current && 
+            !this.#containerRef.current.contains(e.target as Node)
+        ) {
+            this.setState({ isOpen: false })
+        }
+    }
+
+    componentDidMount(): void {
+        document.addEventListener('mousedown', this.handleOutsideClick);
+    }
+
+    componentWillUnmount(): void {
+        document.removeEventListener('mousedown', this.handleOutsideClick);
+    }
+
     render() {
         return (
             <AppStateContext.Consumer>
                 {(state) => {
-
                     const totalPizzas = state.cart.items.reduce((total, item) => {
                         return total + item.quantity
                     }, 0);
 
                     return (
-                        <div className={CartCSS.cartContainer}>
+                        <div className={CartCSS.cartContainer} ref={this.#containerRef}>
                             <button 
                                 className={CartCSS.button} 
                                 type="button" 
